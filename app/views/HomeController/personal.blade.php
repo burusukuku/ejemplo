@@ -8,4 +8,5 @@
 
 @section('content')
 <h1>Página de personal</h1>
+<img src="/imagenes/hola.jpg">
 @stop

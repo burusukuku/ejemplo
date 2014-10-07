@@ -2,6 +2,7 @@
 
 @section('head')
 <title>Página de inicio</title>
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <meta name="description" content="Página de inicio del proyecto">
 <meta name="keywords" content="inicio, pagina, proyecto">
 @stop
