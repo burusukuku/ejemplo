@@ -59,7 +59,7 @@ return array(
 			'username'  => 'root',
 			'password'  => 'karate32',
 			'charset'   => 'utf8',
-			'collation' => 'utf8_spanish2_ci',
+			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
 

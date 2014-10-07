@@ -13,21 +13,28 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('HomeController.index');
 });
 
-Route::get('prueba',function()
+Route::get('/personal', 'HomeController@personal', function()
 {
-		$user = new User;
-		
-		$user->email = "prueba@prueba.com";
-		$user->real_name = "Cuenta Prueba";
-		$user->password = Hash::make('prueba');
-		
-		$user->save();
-		
-		return "El usuario prueba ha sido creado con éxito";
+    return View::make('HomeController.personal');
 });
 
-Route::controller('users','UserController');
+Route::get('/contacto', 'HomeController@contacto', function()
+{
+    return View::make('HomeController.contacto');
+});
 
+//Registro de Rutas
+
+Route::any('/' , array('as' => 'index', 'uses' => 'HomeController@index'));
+Route::any('/personal' , array('as' => 'personal', 'uses' => 'HomeController@personal'));
+Route::any('/contacto' , array('as' => 'contacto', 'uses' => 'HomeController@contacto'));
+
+
+// Redireccion a la página de error 404
+
+App::missing(function($exception){
+	return Response::view('error.error404', array(), 404);
+});
