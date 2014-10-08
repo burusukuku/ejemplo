@@ -34,7 +34,8 @@
             (
                 'index' => '',
                 'personal' => '',
-                'contacto' => ''
+                'contacto' => '',
+                'login' => ''
             );
            if($vista == '' || $vista == 'index')
             {
@@ -48,12 +49,35 @@
              {
                 $current['contacto']='active';
              }
+            else if($vista == 'login')
+             {
+                $current['login']='active';
+             }
           ?>
 
 
             <li class="{{$current['index']}}"><a href="{{URL::route('index')}}">Inicio</a></li>
             <li class="{{$current['personal']}}"><a href="{{URL::route('personal')}}">Personal</a></li>
             <li class="{{$current['contacto']}}"><a href="{{URL::route('contacto')}}">Contacto</a></li>
+            <? if(Auth::user()->guest()){?>
+            <li class="{{$current['login']}}"><a href="{{URL::route('login')}}">Login</a></li>
+            <? }else{ ?>
+            <li>
+            <div class="navbar-collapse collapse">
+            {{Form::open(array(
+                "method" => "POST",
+                "action" => "HomeController@salir",
+                "role" => "form",
+                "class" => "navbar-form",
+            ))}}
+            <a href="{{URL::route('privado')}}">
+            {{Form::label(Auth::user()->get()->user, null, array('class' => 'label label-info'))}}
+            </a>
+            {{Form::input("submit", "", "salir", array("class" => "btn btn-success"))}}
+            {{Form::close()}}
+            </div>
+            </li>
+            <? } ?>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

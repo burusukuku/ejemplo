@@ -11,26 +11,35 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('HomeController.index');
-});
+Route::get('/',array('as' => 'index', 'uses' => 'HomeController@index'));
+Route::get('/personal', array('as' => 'personal', 'uses' => 'HomeController@personal'));
+Route::get('/contacto', array('as' => 'contacto', 'uses' => 'HomeController@contacto'));
+Route::get('/login',array('as' => 'login', 'uses' => 'HomeController@login'))->before("guest_user");
+Route::get('/privado', array('as' => 'privado', 'uses' => 'HomeController@privado'))->before("auth_user");
+Route::get('/salir', array('as' => 'salir', 'uses' => 'HomeController@salir'));
 
-Route::get('/personal', 'HomeController@personal', function()
-{
-    return View::make('HomeController.personal');
-});
+//Recogida de datos con Post
+Route::post('/login', array('before' => 'csrf', function(){
 
-Route::get('/contacto', 'HomeController@contacto', function()
-{
-    return View::make('HomeController.contacto');
-});
+    $user = array(
+        'email' => Input::get('email'),
+        'password' => Input::get('password'),
+        'active' => 1,
+    );
 
-//Registro de Rutas
+    $remember = Input::get("remember");
+    $remember == 'On' ? $remember = true : $remember = false;
 
-Route::any('/' , array('as' => 'index', 'uses' => 'HomeController@index'));
-Route::any('/personal' , array('as' => 'personal', 'uses' => 'HomeController@personal'));
-Route::any('/contacto' , array('as' => 'contacto', 'uses' => 'HomeController@contacto'));
+    if (Auth::user()->attempt($user, $remember)){
+
+        return Redirect::route("privado");
+    } else{
+        return Redirect::route("login");
+    }
+
+}));
+
+
 
 
 // Redireccion a la página de error 404

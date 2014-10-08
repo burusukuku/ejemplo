@@ -27,5 +27,18 @@ class HomeController extends BaseController {
     {
         return View::make('HomeController.contacto');
     }
+    public function login()
+    {
+        return View::make('HomeController.login');
+    }
+    public function privado()
+    {
+        return View::make('HomeController.privado');
+    }
+    public function salir()
+    {
+        Auth::user()->logout();
+        return Redirect::to('login');
+    }
 
 }
