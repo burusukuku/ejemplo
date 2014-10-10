@@ -16,7 +16,7 @@ Route::get('/personal', array('as' => 'personal', 'uses' => 'HomeController@pers
 Route::get('/contacto', array('as' => 'contacto', 'uses' => 'HomeController@contacto'));
 Route::get('/login',array('as' => 'login', 'uses' => 'HomeController@login'))->before("guest_user");
 Route::get('/privado', array('as' => 'privado', 'uses' => 'HomeController@privado'))->before("auth_user");
-Route::get('/salir', array('as' => 'salir', 'uses' => 'HomeController@salir'));
+Route::any('/salir', array('as' => 'salir', 'uses' => 'HomeController@salir')); //recibe por post luego pongo any
 
 //Recogida de datos con Post
 Route::post('/login', array('before' => 'csrf', function(){
