@@ -73,7 +73,7 @@
             <a href="{{URL::route('privado')}}">
             {{Form::label(Auth::user()->get()->user, null, array('class' => 'label label-info'))}}
             </a>
-            {{Form::input("submit", "", "salir", array("class" => "btn btn-success"))}}
+            {{Form::input("submit", "", "Salir", array("class" => "btn btn-success"))}}
             {{Form::close()}}
             </div>
             </li>

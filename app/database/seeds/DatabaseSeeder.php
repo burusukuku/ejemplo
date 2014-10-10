@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder {
         //insertamos los usuarios
         $this->call('UserTableSeeder');
         //mostramos el mensaje de que los usuarios se han insertado correctamente
-        $this->command->info('User table seeded!');
+        $this->command->info('Usuarios insertados correctamente!');
     }
 
 }
