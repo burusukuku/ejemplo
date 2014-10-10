@@ -17,6 +17,9 @@ Route::get('/contacto', array('as' => 'contacto', 'uses' => 'HomeController@cont
 Route::get('/login',array('as' => 'login', 'uses' => 'HomeController@login'))->before("guest_user");
 Route::get('/privado', array('as' => 'privado', 'uses' => 'HomeController@privado'))->before("auth_user");
 Route::get('/salir', array('as' => 'salir', 'uses' => 'HomeController@salir'));
+Route::get('/recoverpassword', array('as' => 'recoverpassword', 'uses' => 'HomeController@recoverpassword'))->before("guest_user");
+
+
 
 //Recogida de datos con Post
 Route::post('/login', array('before' => 'csrf', function(){
@@ -36,6 +39,33 @@ Route::post('/login', array('before' => 'csrf', function(){
     } else{
         return Redirect::route("login");
     }
+
+}));
+
+Route::post('/recoverpassword', array('before' => 'csrf', function(){
+
+    $rules = array(
+        "email" => "required|email|exists:users",
+    );
+
+    $messages = array(
+        "email.required" => "El campo email es requerido",
+        "email.email" => "El formato de email es incorrecto",
+        "email.exists" => "El email seleccionado no se encuentra registrado",
+    );
+
+    $validator = Validator::make(Input::All(), $rules, $messages);
+
+    if($validator->passes()){
+        Password::user()->remind(Input::only("email"), function($message) {
+            $message->subject('Recuperar password en Laravel');
+        });
+        $message = '<hr><label class="label label-info">Le hemos enviado un email a su cuenta de correo electronico para que pueda recuperar su password</label><hr>';
+        return Redirect::route('recoverpassword')->with("message", $message);
+    }else{
+        return Redirect::back()->withinput()->withErrors($validator);
+    }
+
 
 }));
 

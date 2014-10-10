@@ -3,15 +3,14 @@
 return array(
 
     'multi' => array(
-        'account' => array(
-            'driver' => 'eloquent',
-            'model' => 'Account'
-        ),
+
         'user' => array(
-            'driver' => 'database',
-            'table' => 'users'
+            'email' => 'emails.auth.reminder',
+            'driver' => 'eloquent',
+            'model' => 'user'
         ),
         'admin' => array(
+            'email' => 'emails.auth.reminder',
             'driver' => 'database',
             'table' => 'admin'
         ),

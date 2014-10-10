@@ -40,5 +40,9 @@ class HomeController extends BaseController {
         Auth::user()->logout();
         return Redirect::to('login');
     }
+    public function recoverpassword()
+    {
+        return View::make('HomeController.recoverpassword');
+    }
 
 }
